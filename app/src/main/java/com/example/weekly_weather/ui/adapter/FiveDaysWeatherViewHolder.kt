@@ -25,10 +25,10 @@ class FiveDaysWeatherViewHolder(
         val ts = getFormattedDate(data.times(1000L))
         with(binding) {
             dataDay.text = ts
-            "${item.main.temp.roundToInt()} °C".also { degreesForFiveDays.text = it }
-            "${item.main.pressure} гПа".also { pressureText.text = it }
-            "${item.clouds.all}  %".also { cloudCoverText.text = it }
-            "${item.main.humidity} %".also { humidityText.text = it }
+            "${item.temp} ".also { degreesForFiveDays.text = it }
+            "${item.pressure} гПа".also { pressureText.text = it }
+            "${item.all}  %".also { cloudCoverText.text = it }
+            "${item.humidity} %".also { humidityText.text = it }
         }
         itemView.setOnClickListener {
             clickOnDay(item)

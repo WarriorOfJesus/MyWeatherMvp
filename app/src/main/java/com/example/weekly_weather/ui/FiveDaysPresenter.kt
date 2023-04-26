@@ -16,7 +16,8 @@ class FiveDaysPresenter(
                 try {
                     view?.showLoading(isLoading = true)
                     val weatherData = interactor.getFiveDaysWeatherData(city, key)
-                    view?.showData(weatherData.list)
+                    val list = weatherData.list
+                    view?.showData(list)
                 } catch (t: Throwable) {
                     Timber.tag("Error get five days weather data ").e(t.message.toString())
                     view?.showErrorMessage(t)

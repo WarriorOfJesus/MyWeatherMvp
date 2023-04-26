@@ -36,7 +36,6 @@ class WeatherFragment :
     }
 
 
-
     private lateinit var binding: FragmentWeatherBinding
 
     override fun onCreateView(
@@ -65,11 +64,8 @@ class WeatherFragment :
     override fun showWeatherData(data: WeatherData) {
         with(binding) {
             cityName.text = data.name
-            "${data.main.temp.roundToInt()} °C".also { degrees.text = it }
-            description.text = if (data.weather.isNotEmpty())
-                data.weather.first().description
-            else print("sorry").toString()
-
+            degrees.text = data.temp
+            description.text = data.description
             buttonMoreInfo.setOnClickListener {
                 replace(DetailsWeatherFragment.newInstance(data))
             }
@@ -130,6 +126,7 @@ class WeatherFragment :
             deleteInfo()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         requireActivity().finish()

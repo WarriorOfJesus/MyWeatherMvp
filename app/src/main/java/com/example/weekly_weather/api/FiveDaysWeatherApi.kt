@@ -1,6 +1,7 @@
 package com.example.weekly_weather.api
 
 import com.example.weekly_weather.api.models.FiveDaysResponse
+import com.example.weekly_weather.api.models.WeatherOneDataResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

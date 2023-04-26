@@ -1,103 +1,64 @@
 package com.example.weekly_weather.model
 
-import com.example.myweather.api.models.CloudsResponse
-import com.example.myweather.api.models.CoordResponse
-import com.example.myweather.api.models.WeatherResponse
-import com.example.myweather.api.models.WindResponse
-import com.example.myweather.model.Clouds
-import com.example.myweather.model.Coord
-import com.example.myweather.model.Weather
-import com.example.myweather.model.Wind
+import com.example.myweather.api.models.*
+
+import com.example.utils.viewbinding.translateTemp
 import com.example.weekly_weather.api.models.*
+import com.example.weekly_weather.api.models.MainResponse
 
 object WeatherWeeklyConverter {
-    fun fromNetwork(response: FiveDaysResponse): FiveDays {
-        return FiveDays(
-            cod = response.cod,
-            message = response.message,
-            cnt = response.cnt,
-            list = fromNetworkWeatherOneData(response.list),
-            city = fromNetwork(response.city)
+
+    fun fromNetwork(response: FiveDaysResponse): DetailWeatherData {
+        return DetailWeatherData(
+            list = fromNetwork(response.list)
         )
     }
 
-
-    private fun fromNetworkWeatherOneData(response: List<WeatherOneDataResponse>) =
-        response.map { data ->
+    private fun fromNetwork(list : List<WeatherOneDataResponse>): List<FiveDaysWeather>{
+        return list.map {
             FiveDaysWeather(
-                dt = data.dt,
-                main = fromNetwork(data.main),
-                weather = fromNetworkWeather(data.weather),
-                clouds = fromNetwork(data.clouds),
-                wind = fromNetwork(data.wind),
-                visibility = data.visibility,
-                pop = data.pop,
-                rain = fromNetwork(data.rain),
-                sys = fromNetwork(data.sys),
-                dt_txt = data.dataTime
+                dt = it.dt,
+                temp = fromNetworkTemp(it.main),
+                speed = fromNetworkSpeed(it.wind),
+                all = fromNetworkAll(it.clouds),
+                pressure = fromNetworkPressure(it.main),
+                humidity = fromNetworkHumidity(it.main),
+                visibility = it.visibility,
+                description = fromNetworkDescription(it.weather),
+                deg = fromNetworkDeg(it.wind),
+                dt_txt = it.dataTime
             )
         }
+    }
 
-    private fun fromNetwork(response: CityResponse) =
-        City(
-            id = response.id,
-            name = response.name,
-            coord = fromNetwork(response.coord),
-            country = response.country,
-            population = response.population,
-            timeZone = response.timeZone,
-            sunrise = response.sunrise,
-            sunset = response.sunset
-        )
 
-    private fun fromNetworkWeather(response: List<WeatherResponse>) =
-        response.map { data ->
-            Weather(
-                id = data.id,
-                main = data.main,
-                description = data.description,
-                icon = data.icon
-            )
-        }
+    private fun fromNetworkTemp(response: MainResponse): String {
+        return translateTemp(response.temp)
+    }
 
-    private fun fromNetwork(response: MainResponse2) =
-        Main(
-            temp = response.temp,
-            feels_like = response.feelsLike,
-            temp_min = response.tempMin,
-            temp_max = response.tempMax,
-            pressure = response.pressure,
-            sea_level = response.seaLevel,
-            grnd_level = response.grndLevel,
-            humidity = response.humidity,
-            temp_kf = response.tempKf
-        )
+    private fun fromNetworkSpeed(response: WindResponse?): String {
+        return response?.speed.toString()
+    }
 
-    private fun fromNetwork(response: CloudsResponse) =
-        Clouds(
-            all = response.all
-        )
+    private fun fromNetworkAll(response: CloudsResponse): String {
+        return response.all.toString()
+    }
 
-    private fun fromNetwork(response: WindResponse) =
-        Wind(
-            speed = response.speed,
-            deg = response.deg,
-            gust = response.gust
-        )
+    private fun fromNetworkPressure(response: MainResponse): String {
+        return response.pressure.toString()
+    }
 
-    private fun fromNetwork(response: RainResponse?) =
-        Rain(
-            h3 = response?.h3 ?: 0.0
-        )
+    private fun fromNetworkHumidity(response: MainResponse): String {
+        return response.humidity.toString()
+    }
 
-    private fun fromNetwork(response: SysResponse2) =
-        Sys(
-            pod = response.pod
-        )
+    private fun fromNetworkDeg(response: WindResponse?): Int? {
+        return response?.deg
+    }
 
-    private fun fromNetwork(response: CoordResponse) =
-        Coord(
-            lon = response.lon,
-            lat = response.lat
-        )
+    private fun fromNetworkDescription(response: List<WeatherResponse>): String? {
+        return response[0].description
+    }
+
+
 }

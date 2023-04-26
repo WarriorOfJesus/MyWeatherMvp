@@ -15,8 +15,6 @@ import kotlin.math.roundToInt
 
 class DetailsWeatherFragment : BaseFragment(R.layout.fragment_details_weather) {
 
-    private var strBuilder: StringBuilder? = null
-
     companion object {
         fun newInstance(weatherData: WeatherData?) = DetailsWeatherFragment().apply {
             arguments = bundleOf(Arguments.WEATHER_DATA_KEY to weatherData)
@@ -47,7 +45,7 @@ class DetailsWeatherFragment : BaseFragment(R.layout.fragment_details_weather) {
     private fun showWeatherData(data: WeatherData) {
         with(binding) {
             val strBuilder = StringBuilder()
-            when (data.wind.deg) {
+            when (data.deg) {
                 in 0..22, in 338..360 -> strBuilder.append("С, ")
                 in 23..67 -> strBuilder.append("СВ, ")
                 in 68..112 -> strBuilder.append("В, ")
@@ -57,19 +55,17 @@ class DetailsWeatherFragment : BaseFragment(R.layout.fragment_details_weather) {
                 in 248..292 -> strBuilder.append("З, ")
                 in 293..357 -> strBuilder.append("СЗ, ")
             }
-            strBuilder.append(data.wind.deg).append('\u00B0')
+            strBuilder.append(data.deg).append('\u00B0')
             tvWindDirection.text = strBuilder
 
             data.name.also { cityName2.text = it }
-            "${data.main.temp.roundToInt()} °C".also { degrees2.text = it }
-            "${data.wind.speed}  м/с".also { speedOfWindText.text = it }
-            "${data.clouds.all}  %".also { cloudiness.text = it }
-            "${data.main.pressure} гПа".also { pressureText.text = it }
-            "${data.main.humidity} %".also { humidityText.text = it }
-            "${data.visibility.div(1000)} KM".also { visibilityText.text = it }
-            description2.text = if (data.weather.isNotEmpty())
-                data.weather.first().description
-            else print("sorry").toString()
+            degrees2.text = data.temp
+            "${data.speed}  м/с".also { speedOfWindText.text = it }
+            "${data.all}  %".also { cloudiness.text = it }
+            "${data.pressure} гПа".also { pressureText.text = it }
+            "${data.humidity} %".also { humidityText.text = it }
+            "${data.visibility?.div(1000)} KM".also { visibilityText.text = it }
+            description2.text = data.description
         }
     }
 }

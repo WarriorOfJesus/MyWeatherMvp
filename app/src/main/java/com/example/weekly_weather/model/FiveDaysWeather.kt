@@ -9,13 +9,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class FiveDaysWeather(
     val dt: Long,
-    val main: Main,
-    val weather: List<Weather>?,
-    val clouds: Clouds,
-    val wind: Wind,
-    val visibility: Int,
-    val pop: Double,
-    val rain: Rain,
-    val sys: Sys,
+    val temp: String?,
+    val speed: String?,
+    val all: String?,
+    val pressure: String?,
+    val humidity: String?,
+    val visibility: Int?,
+    val description: String?,
+    val deg: Int?,
     val dt_txt: String
 ):Parcelable

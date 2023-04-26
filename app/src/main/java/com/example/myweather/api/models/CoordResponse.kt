@@ -1,3 +1,10 @@
 package com.example.myweather.api.models
 
-data class CoordResponse(val lon: Double, val lat: Double)
+import com.google.gson.annotations.SerializedName
+
+data class CoordResponse(
+    @SerializedName("lon")
+    val lon: Double,
+    @SerializedName("lat")
+    val lat: Double
+)

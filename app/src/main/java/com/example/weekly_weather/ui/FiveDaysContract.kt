@@ -2,7 +2,6 @@ package com.example.weekly_weather.ui
 
 import com.example.common.mvp.MvpPresenter
 import com.example.common.mvp.MvpView
-import com.example.myweather.model.WeatherData
 import com.example.weekly_weather.model.FiveDaysWeather
 
 interface FiveDaysContract {

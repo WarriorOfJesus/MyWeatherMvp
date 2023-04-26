@@ -50,7 +50,7 @@ class FragmentForAdditionalInfo : BaseFragment(R.layout.fragment_for_additional_
                 requireActivity().supportFragmentManager.popBackStack()
             }
             val strBuilder = StringBuilder()
-            when (data?.wind?.deg) {
+            when (data?.deg) {
                 in 0..22, in 338..360 -> strBuilder.append("С, ")
                 in 23..67 -> strBuilder.append("СВ, ")
                 in 68..112 -> strBuilder.append("В, ")
@@ -60,17 +60,16 @@ class FragmentForAdditionalInfo : BaseFragment(R.layout.fragment_for_additional_
                 in 248..292 -> strBuilder.append("З, ")
                 in 293..357 -> strBuilder.append("СЗ, ")
             }
-            strBuilder.append(data?.wind?.deg).append('\u00B0')
+            strBuilder.append(data?.deg).append('\u00B0')
             tvWindDirection.text = strBuilder
-            "${data?.main?.temp?.roundToInt()} °C".also { degrees2.text = it }
-            "${data?.wind?.speed}  м/с".also { speedOfWindText.text = it }
-            "${data?.clouds?.all}  %".also { cloudiness.text = it }
-            "${data?.main?.pressure} гПа".also { pressureText.text = it }
-            "${data?.main?.humidity} %".also { humidityText.text = it }
+            "${data?.temp}".also { degrees2.text = it }
+            "${data?.speed}  м/с".also { speedOfWindText.text = it }
+            "${data?.all}  %".also { cloudiness.text = it }
+            "${data?.pressure} гПа".also { pressureText.text = it }
+            "${data?.humidity} %".also { humidityText.text = it }
             "${data?.visibility?.div(1000)} KM".also { visibilityText.text = it }
-            description2.text = if (data?.weather?.isNotEmpty() == true)
-                data?.weather?.first()?.description
-            else print("sorry").toString()
+            description2.text = data?.description
+
         }
         presenter.getWeatherData(cityName.toString(), key.toString())
     }

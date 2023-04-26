@@ -1,17 +1,32 @@
 package com.example.myweather.api.models
 
+import com.google.gson.annotations.SerializedName
+
 data class WeatherDataResponse(
-    val coord: CoordResponse,
+    @SerializedName("coord")
+    val coord: CoordResponse?,
+    @SerializedName("weather")
     val weather: List<WeatherResponse>,
-    val base: String,
+    @SerializedName("base")
+    val base: String?,
+    @SerializedName("main")
     val main: MainResponse,
-    val visibility: Int,
-    val wind: WindResponse,
-    val clouds: CloudsResponse,
-    val dt: Long,
-    val sys: SysResponse,
-    val timezone: Int,
-    val id: Int,
-    val name: String,
-    val cod: Int
+    @SerializedName("visibility")
+    val visibility: Int?,
+    @SerializedName("wind")
+    val wind: WindResponse?,
+    @SerializedName("clouds")
+    val clouds: CloudsResponse?,
+    @SerializedName("dt:")
+    val dt: Int?,
+    @SerializedName("sys")
+    val sys: SysResponse?,
+    @SerializedName("timezone")
+    val timezone: Int?,
+    @SerializedName("id")
+    val id: Int?,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("cod")
+    val cod: Int?
 )

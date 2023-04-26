@@ -1,12 +1,24 @@
 package com.example.myweather.api.models
 
+import com.google.gson.annotations.SerializedName
+
 data class MainResponse(
-    val temp: Double,
-    val feels_like: Double,
-    val temp_min: Double,
-    val temp_max: Double,
-    val pressure: Int,
-    val humidity: Int,
-    val sea_level: Int,
-    val grnd_level: Int
+    @SerializedName("temp")
+    val temp: Double?,
+    @SerializedName("feels_like")
+    val feelsLike: Float?,
+    @SerializedName("temp_min")
+    val tempMin: Float?,
+    @SerializedName("temp_max")
+    val tempMax: Float?,
+    @SerializedName("pressure")
+    val pressure: Int?,
+    @SerializedName("humidity")
+    val humidity: Int?,
+    @SerializedName("sea_level")
+    val seaLevel: Int?,
+    @SerializedName("grnd_level")
+    val grndLevel: Int?,
+    @SerializedName("tempKf")
+    val tempKf: Double?
 )

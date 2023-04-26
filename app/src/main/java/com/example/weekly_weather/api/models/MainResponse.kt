@@ -2,7 +2,7 @@ package com.example.weekly_weather.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class MainResponse2(
+data class MainResponse(
     @SerializedName("temp")
     val temp: Double,
     @SerializedName("feels_like")

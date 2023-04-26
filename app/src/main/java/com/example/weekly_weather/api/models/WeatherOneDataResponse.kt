@@ -9,7 +9,7 @@ data class WeatherOneDataResponse(
     @SerializedName("dt")
     val dt: Long,
     @SerializedName("main")
-    val main: MainResponse2,
+    val main: MainResponse,
     @SerializedName("weather")
     val weather: List<WeatherResponse>,
     @SerializedName("clouds")
@@ -23,7 +23,7 @@ data class WeatherOneDataResponse(
     @SerializedName("rain")
     val rain: RainResponse?,
     @SerializedName("sys")
-    val sys : SysResponse2,
+    val sys : SysResponse,
     @SerializedName("dt_txt")
     val dataTime: String
 )
